@@ -1,0 +1,621 @@
+/* ==========================================================================
+   SEED-VII Minimalist Neuro-Interface — Warm Obsidian Editorial Theme
+   Inspiracja: elegancka typografia redakcyjna, ciepła czerń, lawendowy akcent
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    /* Ciepłe, głębokie tony tła obsidian/charcoal */
+    --bg-main: #141312;
+    --bg-surface: #1b1a17;
+    --bg-surface-elevated: #23221e;
+    
+    /* Kolor akcentujący: wyrafinowana lawenda / periwinkle ze zrzutu */
+    --accent-primary: #9d9fc4;
+    --accent-primary-hover: #b4b6db;
+    --accent-lavender: #9d9fc4;
+    --accent-ivory: #ebe8df;
+    
+    /* Ciepłe, delikatne obramowania */
+    --accent-border: rgba(235, 232, 225, 0.08);
+    --accent-border-hover: rgba(157, 159, 196, 0.45);
+    
+    /* Ciepła paleta typograficzna kości słoniowej i taupe */
+    --text-pure: #f5f3ec;
+    --text-primary: #ebe8df;
+    --text-secondary: #a8a59b;
+    --text-muted: #6e6b62;
+    
+    /* Typografia geometryczno-redakcyjna o zmiennych wagach */
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+}
+
+/* --- Reset & Global App Canvas --- */
+html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+    background-color: var(--bg-main) !important;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(157, 159, 196, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 15% 90%, rgba(235, 232, 225, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 85% 50%, rgba(157, 159, 196, 0.03) 0%, transparent 40%) !important;
+    background-attachment: fixed !important;
+    color: var(--text-primary) !important;
+    font-family: var(--font-sans) !important;
+    scroll-behavior: smooth !important;
+}
+
+/* Ukrycie standardowych elementów dekoracyjnych Streamlit */
+#MainMenu, footer, header {
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.main .block-container {
+    padding-top: 1rem !important;
+    padding-bottom: 5rem !important;
+    max-width: 1050px !important;
+}
+
+/* --- Hero Section (100vh) --- */
+.hero-fullscreen {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 1rem 3rem 1rem;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.hero-header-box {
+    margin-top: 18vh;
+    max-width: 950px;
+}
+
+.hero-main-title {
+    font-family: var(--font-heading) !important;
+    font-size: clamp(2.3rem, 5.8vw, 4.1rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.035em !important;
+    line-height: 1.12 !important;
+    color: var(--text-primary) !important;
+    margin: 0 !important;
+    text-shadow: 0 0 45px rgba(235, 232, 225, 0.08);
+}
+
+.hero-subtitle {
+    font-family: var(--font-heading);
+    font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+    font-weight: 400;
+    color: var(--accent-primary);
+    margin-top: 1.2rem;
+    letter-spacing: -0.01em;
+}
+
+/* Okrągły przycisk ze strzałką w dół ze smooth scrollem */
+.scroll-arrow-anchor {
+    text-decoration: none !important;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+.scroll-circle-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid rgba(235, 232, 225, 0.12);
+    background: rgba(27, 26, 23, 0.7);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    animation: float-down 2.5s ease-in-out infinite;
+}
+
+.scroll-circle-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-pure);
+    transform: scale(1.08);
+    box-shadow: 0 0 25px rgba(157, 159, 196, 0.28);
+}
+
+@keyframes float-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+/* --- Sekcja Wyboru Źródła / Wgrywania --- */
+.section-wrapper {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 1rem;
+    box-sizing: border-box;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+}
+
+#source-section,
+#upload-section {
+    scroll-margin-top: 1.5rem;
+    display: block;
+}
+
+/* Karta funkcyjna z podwójną animacją: Fala EEG + Słowa Emocji 3D */
+.source-card {
+    position: relative;
+    background: var(--bg-surface);
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-md);
+    padding: 2.2rem 1.5rem;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    perspective: 800px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    margin-bottom: 0 !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Subtelna fala EEG w tle kart źródła */
+.source-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 100' preserveAspectRatio='none'%3E%3Cpath d='M0 50 L120 50 L140 18 L160 82 L180 28 L200 68 L220 50 L350 50 L370 8 L390 92 L410 38 L430 72 L450 50 L580 50 L600 12 L620 88 L640 50 L800 50' fill='none' stroke='%239d9fc4' stroke-width='2.2' opacity='0.35' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 50% 65px;
+    background-repeat: repeat-x;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes eeg-wave-flow {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50%); }
+}
+
+.source-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-pure);
+    margin-bottom: 0.4rem;
+    position: relative;
+    z-index: 3;
+    letter-spacing: -0.01em;
+    pointer-events: none;
+}
+
+.source-card-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    position: relative;
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Plakietka akcji w oknie */
+.source-card-cta {
+    margin-top: 1.1rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent-primary);
+    background: rgba(157, 159, 196, 0.08);
+    border: 1px solid rgba(157, 159, 196, 0.28);
+    padding: 0.42rem 1.15rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Górny panel wyrównujący w kolumnie 2 */
+.source-top-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+    height: 68px;
+    box-sizing: border-box;
+}
+
+.source-top-label {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+}
+
+.source-top-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(235, 232, 225, 0.03);
+    border: 1px solid rgba(235, 232, 225, 0.08);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.85rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    height: 38px;
+    box-sizing: border-box;
+}
+
+/* Kontenery okien funkcyjnych - nakładanie akcji na okna */
+.st-key-disk_card_container,
+.st-key-disk_card_container > div,
+.st-key-disk_card_container div[data-testid="stVerticalBlockBorderWrapper"],
+.st-key-disk_card_container div[data-testid="stVerticalBlock"],
+.st-key-browser_card_container,
+.st-key-browser_card_container > div,
+.st-key-browser_card_container div[data-testid="stVerticalBlockBorderWrapper"],
+.st-key-browser_card_container div[data-testid="stVerticalBlock"] {
+    position: relative !important;
+    width: 100% !important;
+    height: 230px !important;
+    min-height: 230px !important;
+    max-height: 230px !important;
+}
+
+/* Pozycjonowanie karty graficznej (Child 1) sztywno w oknie */
+.st-key-disk_card_container div[data-testid="stElementContainer"]:first-child,
+.st-key-browser_card_container div[data-testid="stElementContainer"]:first-child {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 230px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 1 !important;
+}
+
+/* Przycisk dysku (Child 2) nakładany bezpośrednio na okno */
+.st-key-disk_card_container .st-key-btn_load_disk,
+.st-key-disk_card_container div[data-testid="stElementContainer"]:nth-child(2),
+.st-key-disk_card_container div[data-testid="stElementContainer"]:has(div[data-testid="stButton"]) {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 230px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 10 !important;
+}
+
+.st-key-disk_card_container .st-key-btn_load_disk div[data-testid="stButton"] {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.st-key-disk_card_container .st-key-btn_load_disk button {
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0 !important;
+    cursor: pointer !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Uploader przeglądarki (Child 2) nakładany bezpośrednio na okno */
+.st-key-browser_card_container div[class*="st-key-uploader"],
+.st-key-browser_card_container div[class*="st-key-browser_uploader"],
+.st-key-browser_card_container div[data-testid="stElementContainer"]:nth-child(2),
+.st-key-browser_card_container div[data-testid="stElementContainer"]:has(div[data-testid="stFileUploader"]) {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 230px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 10 !important;
+}
+
+.st-key-browser_card_container div[data-testid="stFileUploader"] {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 10 !important;
+    opacity: 0 !important;
+    cursor: pointer !important;
+    overflow: hidden !important;
+}
+
+.st-key-browser_card_container div[data-testid="stFileUploader"] section[data-testid="stFileUploaderDropzone"],
+.st-key-browser_card_container div[data-testid="stFileUploader"] section {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    cursor: pointer !important;
+    z-index: 11 !important;
+}
+
+.st-key-browser_card_container div[data-testid="stFileUploader"] button {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0 !important;
+    cursor: pointer !important;
+    border: none !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 12 !important;
+}
+
+.st-key-browser_card_container div[data-testid="stFileUploader"] input[type="file"],
+.st-key-browser_card_container div[data-testid="stFileUploader"] input[data-testid="stFileUploaderDropzoneInput"] {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0 !important;
+    cursor: pointer !important;
+    z-index: 13 !important;
+}
+
+.st-key-browser_card_container div[data-testid="stFileUploader"] * {
+    cursor: pointer !important;
+}
+
+/* Efekty hover i active na oknach */
+.st-key-disk_card_container:hover .source-card,
+.st-key-browser_card_container:hover .source-card {
+    border-color: var(--accent-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(157, 159, 196, 0.22);
+}
+
+.st-key-disk_card_container:hover .source-card::before,
+.st-key-browser_card_container:hover .source-card::before {
+    opacity: 1;
+    animation: eeg-wave-flow 3.5s linear infinite;
+}
+
+.st-key-disk_card_container:hover .source-card-cta,
+.st-key-browser_card_container:hover .source-card-cta {
+    background: rgba(157, 159, 196, 0.2);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px rgba(157, 159, 196, 0.38);
+    color: var(--text-pure);
+}
+
+.st-key-disk_card_container:active .source-card,
+.st-key-browser_card_container:active .source-card {
+    transform: scale(0.985);
+}
+
+/* --- Siatka kafelków parametrów technicznych (Key-Value Chips) --- */
+.tech-chips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 1.2rem 0 1.8rem 0;
+}
+
+.tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: #1c1b18;
+    border: 1px solid rgba(235, 232, 225, 0.08);
+    border-radius: var(--radius-sm);
+    padding: 0.45rem 0.95rem;
+    font-size: 0.83rem;
+    font-family: var(--font-mono);
+}
+
+.tech-chip-key {
+    color: #a1a1aa; /* zinc-400 */
+    font-weight: 500;
+}
+
+.tech-chip-val {
+    color: #f4f4f5; /* zinc-100 */
+    font-weight: 600;
+}
+
+/* --- Zunifikowana Sekcja Wyników --- */
+.result-card-unified {
+    background: var(--bg-surface);
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-md);
+    padding: 2.2rem 2.2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.kpi-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+}
+
+.result-header-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #a1a1aa; /* zinc-400 */
+    margin-bottom: 0.45rem;
+    letter-spacing: -0.01em;
+    font-family: var(--font-sans);
+}
+
+.kpi-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.kpi-emotion-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.4rem, 4.8vw, 3.4rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: #ffffff; /* zinc-100 / biały */
+    line-height: 1.1;
+}
+
+.kpi-emotion-pct {
+    font-family: var(--font-mono);
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    font-weight: 700;
+    color: #ffffff;
+    opacity: 0.95;
+}
+
+.kpi-divider {
+    height: 1px;
+    background: rgba(235, 232, 225, 0.08);
+    margin: 1.8rem 0 1.8rem 0;
+}
+
+/* Kompaktowy wykres poziomy prawdopodobieństw */
+.distribution-row {
+    margin-bottom: 0.85rem;
+}
+
+.distribution-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.35rem;
+}
+
+.distribution-label {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #d4d4d8; /* zinc-300 */
+}
+
+.distribution-value {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff; /* zinc-100 / biały */
+}
+
+.distribution-track {
+    height: 9px;
+    background: #27272a; /* bg-zinc-800 */
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.distribution-bar {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Przycisk Resetu na samym dole */
+.reset-btn-container {
+    text-align: center;
+    margin: 4rem 0 2rem 0;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--accent-border);
+}
+
+/* Stylizacja przycisków Streamlit w stylu slate-lavender */
+.stButton > button, .stDownloadButton > button {
+    background: #25232d !important;
+    color: var(--text-primary) !important;
+    border: 1px solid rgba(157, 159, 196, 0.28) !important;
+    border-radius: var(--radius-sm) !important;
+    font-family: var(--font-heading) !important;
+    font-weight: 600 !important;
+    font-size: 0.92rem !important;
+    letter-spacing: 0.02em !important;
+    padding: 0.6rem 1.6rem !important;
+    transition: all 0.25s ease !important;
+}
+
+.stButton > button:hover, .stDownloadButton > button:hover {
+    background: #2f2c3a !important;
+    border-color: var(--accent-primary) !important;
+    color: var(--text-pure) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 18px rgba(157, 159, 196, 0.22) !important;
+}
+
+/* Streamlit File Uploader */
+[data-testid="stFileUploader"] {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+[data-testid="stSelectbox"] > div > div {
+    background-color: var(--bg-surface) !important;
+    border: 1px solid var(--accent-border) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-testid="stTextInput"] input {
+    background-color: var(--bg-surface) !important;
+    border: 1px solid var(--accent-border) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text-primary) !important;
+}
