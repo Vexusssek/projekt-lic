@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+data/
+EEG_features/
+EEG_preprocessed/
+reports/
+.DS_Store
